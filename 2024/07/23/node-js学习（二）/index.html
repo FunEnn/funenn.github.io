@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>node.js学习（二） | ennの博客</title><meta name="author" content="enn"><meta name="copyright" content="enn"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="[toc] 1、模块化1.1：模块化的基本概念（1）什么是模块化模块化是指解决一个复杂问题时，自顶向下逐层把系统划分成若干模块的过程。对于整个系统来说，模块是可组合、分解和更换的单元。 （2）编程领域中的模块化编程领域中的模块化，就是遵守固定的规则，把一个大文件拆成独立并互相依赖的多个小模块。 把代码进行模块化拆分的好处:  提高了代码的复用性 提高了代码的可维护性 可以实现按需加载  1.2：N">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js学习（二）">
+<meta property="og:url" content="http://example.com/2024/07/23/node-js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="ennの博客">
+<meta property="og:description" content="[toc] 1、模块化1.1：模块化的基本概念（1）什么是模块化模块化是指解决一个复杂问题时，自顶向下逐层把系统划分成若干模块的过程。对于整个系统来说，模块是可组合、分解和更换的单元。 （2）编程领域中的模块化编程领域中的模块化，就是遵守固定的规则，把一个大文件拆成独立并互相依赖的多个小模块。 把代码进行模块化拆分的好处:  提高了代码的复用性 提高了代码的可维护性 可以实现按需加载  1.2：N">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/39.jpg">
+<meta property="article:published_time" content="2024-07-23T14:01:28.000Z">
+<meta property="article:modified_time" content="2024-07-23T15:07:26.082Z">
+<meta property="article:author" content="enn">
+<meta property="article:tag" content="NodeJs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/39.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/07/23/node-js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'node.js学习（二）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-23 23:07:26'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="ennの博客"><span class="site-name">ennの博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">node.js学习（二）<a class="post-edit-link" href="https://funenn.github.io/_posts/node-js学习（二）.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-23T14:01:28.000Z" title="发表于 2024-07-23 22:01:28">2024-07-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-23T15:07:26.082Z" title="更新于 2024-07-23 23:07:26">2024-07-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="node.js学习（二）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>[toc]</p>
+<h3 id="1、模块化"><a href="#1、模块化" class="headerlink" title="1、模块化"></a>1、模块化</h3><h4 id="1-1：模块化的基本概念"><a href="#1-1：模块化的基本概念" class="headerlink" title="1.1：模块化的基本概念"></a>1.1：模块化的基本概念</h4><p>（1）什么是模块化<br>模块化是指解决一个复杂问题时，自顶向下逐层把系统划分成若干模块的过程。对于整个系统来说，模块是可组合、分解和更换的单元。</p>
+<p>（2）编程领域中的模块化<br>编程领域中的模块化，就是遵守固定的规则，把一个大文件拆成独立并互相依赖的多个小模块。</p>
+<p>把代码进行模块化拆分的好处:</p>
+<ul>
+<li>提高了代码的复用性</li>
+<li>提高了代码的可维护性</li>
+<li>可以实现按需加载</li>
+</ul>
+<h4 id="1-2：Node-js中的模块化"><a href="#1-2：Node-js中的模块化" class="headerlink" title="1.2：Node.js中的模块化"></a>1.2：Node.js中的模块化</h4><p>（1）Node.js中模块的分类<br>Node.js中根据模块来源的不同，将模块分为了3大类，分别是:</p>
+<ul>
+<li>内置模块（内置模块是由Node.js 官方提供的，例如fs、path、http等）</li>
+<li>自定义模块（用户创建的每个.js文件，都是自定义模块）</li>
+<li>第三方模块（由第三方开发出来的模块，并非官方提供的内置模块，也不是用户创建的自定义模块，使用前需要先下载）</li>
+</ul>
+<p>（2）加载模块<br>使用强大的require()方法，可以加载需要的内置模块、用户自定义模块、第三方模块进行使用。例如:</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1．加载内置的fs模块</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2．加载用户的自定义模块</span></span><br><span class="line"><span class="keyword">const</span> custom = <span class="built_in">require</span>(<span class="string">'./custom.js'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3．加载第三方模块</span></span><br><span class="line"><span class="keyword">const</span> moment = <span class="built_in">require</span>( <span class="string">'moment'</span> )</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>（3）Node.js中的模块作用域</strong></p>
+<p><strong>什么是模块作用域</strong></p>
+<p>和函数作用域类似，在自定义模块中定义的变量、方法等成员，只能在当前模块内被访问，这种模块级别的访问限制，叫做模块作用域。</p>
+<p><strong>模块作用域的好处</strong></p>
+<p>防止了全局变量污染的问题</p>
+<h3 id="2、Express"><a href="#2、Express" class="headerlink" title="2、Express"></a>2、Express</h3><blockquote>
+<p> Express是基于Node.js平台，快速、开放、极简的Web开发框架。</p>
+<p>通俗的理解：Express的作用和Node.js 内置的 http模块类似，是专门用来创建Web服务器的。</p>
+<p>Express的本质：就是一个npm上的第三方包，提供了快速创建Web服务器的便捷方法。</p>
+</blockquote>
+<p>使用Express,我们可以方便、快速的创建<strong>Web 网站</strong>的服务器或<strong>API接口</strong>的服务器。</p>
+<h4 id="2-1-Express的基本使用"><a href="#2-1-Express的基本使用" class="headerlink" title="2.1 Express的基本使用"></a>2.1 Express的基本使用</h4><p><strong>（1）安装Express</strong></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i express@4.17.1</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>（2）创建基本的Web服务器</strong></p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1．导入express</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="comment">// 2．创建web服务器</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>()</span><br><span class="line"><span class="comment">// 3．调用app.listen(端口号，启动成功后的回调函数)，启动服务果</span></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">80</span>, <span class="function">() =&gt;</span> {</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>( <span class="string">'express server running at http://127.0.0.1'</span>)</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>（3）监听GET请求</strong></p>
+<p>通过app.get()方法，可以监听客户端的GET请求。</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数1：客户端请求的URL地址</span></span><br><span class="line"><span class="comment">// 参数2：请求对应的处理函数</span></span><br><span class="line"><span class="comment">// 		req：请求对象(包含了与请求相关的属性与方法)</span></span><br><span class="line"><span class="comment">//		res：响应对象（包含了与响应相关的属性与方法)</span></span><br><span class="line">app.<span class="title function_">get</span>( <span class="string">'请求URL'</span>, <span class="keyword">function</span>(<span class="params">req,res</span>) {<span class="comment">/*处理函数*/</span>})</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>（4）监听post请求</strong></p>
+<p>通过app.post()方法，可以监听客户端的GET请求。</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数1：客户端请求的URL地址</span></span><br><span class="line"><span class="comment">// 参数2：请求对应的处理函数</span></span><br><span class="line"><span class="comment">// 		req：请求对象(包含了与请求相关的属性与方法)</span></span><br><span class="line"><span class="comment">//		res：响应对象（包含了与响应相关的属性与方法)</span></span><br><span class="line">app.<span class="title function_">post</span>( <span class="string">'请求URL'</span>, <span class="keyword">function</span>(<span class="params">req,res</span>) {<span class="comment">/*处理函数*/</span>})</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>（5）把内容响应给客户端</strong></p>
+<p>通过res.send(方法，可以把处理好的内容，发送给客户端：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">'/user'</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span>{</span><br><span class="line">    <span class="comment">// 向客户端发送JSON对象</span></span><br><span class="line">	res.<span class="title function_">send</span>({ <span class="attr">name</span>:<span class="string">'zs'</span>, <span class="attr">age</span>: <span class="number">20</span>, <span class="attr">gender</span>: <span class="string">'男'</span>})</span><br><span class="line">})</span><br><span class="line">app.<span class="title function_">post</span>( <span class="string">'/user'</span>, <span class="function">(<span class="params">req,res</span>) =&gt;</span>{</span><br><span class="line">    <span class="comment">// 向客户端发送文本内容</span></span><br><span class="line">	res.<span class="title function_">send</span>(<span class="string">'请求成功'</span>)</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>示例：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1．导入express</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="comment">// 2．创建web服务器</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听客户端的 GET 和 POST 请求，并向客户端响应具体的内容</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">'/user'</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span>{</span><br><span class="line">    <span class="comment">// 调用express提供的res.sent()方法，向客户端发送JSON对象</span></span><br><span class="line">	res.<span class="title function_">send</span>({ <span class="attr">name</span>:<span class="string">'zs'</span>, <span class="attr">age</span>: <span class="number">20</span>, <span class="attr">gender</span>: <span class="string">'男'</span>})</span><br><span class="line">})</span><br><span class="line">app.<span class="title function_">post</span>( <span class="string">'/user'</span>, <span class="function">(<span class="params">req,res</span>) =&gt;</span>{</span><br><span class="line">    <span class="comment">// 调用express提供的res.sent()方法，向客户端发送文本内容</span></span><br><span class="line">	res.<span class="title function_">send</span>(<span class="string">'请求成功'</span>)</span><br><span class="line">})</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3．调用app.listen(端口号，启动成功后的回调函数)，启动服务果</span></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">80</span>, <span class="function">() =&gt;</span> {</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>( <span class="string">'express server running at http://127.0.0.1'</span>)</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>（6）获取 URL中携带的查询参数</strong></p>
+<p>通过req.query对象，可以访问到客户端通过查询字符串的形式，发送到服务器的参数：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>( <span class="string">' /'</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> {</span><br><span class="line">    <span class="comment">// req.query 默认是一个空对象</span></span><br><span class="line">    <span class="comment">// 客户端使用?name=zs&amp;age=20这种查询字符串形式，发送到服务器的参数</span></span><br><span class="line">    <span class="comment">// 可以通过req.query 对象访问到，例如:</span></span><br><span class="line">	<span class="comment">// req.query.name    req.query.age</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">query</span>)</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>示例：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1．导入express</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="comment">// 2．创建web服务器</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过req.query对象，可以访问到客户端发送过来的查询参数</span></span><br><span class="line"><span class="comment">// 注意默认情况下，req.query是一个空对象</span></span><br><span class="line">app.<span class="title function_">get</span>( <span class="string">'/'</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> {</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">query</span>)</span><br><span class="line">	res.<span class="title function_">send</span>(req.<span class="property">query</span>)</span><br><span class="line">})</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3．调用app.listen(端口号，启动成功后的回调函数)，启动服务果</span></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">80</span>, <span class="function">() =&gt;</span> {</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>( <span class="string">'express server running at http://127.0.0.1'</span>)</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>（7）获取URL中的动态参数</strong></p>
+<p>通过req.params对象，可以访问到URL中，通过**:符号<strong>匹配到的</strong>动态参数**：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// URL地址中，可以通过:参数名的形式，匹配动态参数值</span></span><br><span class="line">app.<span class="title function_">get</span>( <span class="string">'/user/:id'</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> {</span><br><span class="line">	<span class="comment">// req.params默认是一个空对象</span></span><br><span class="line">	<span class="comment">//里面存放着通过:动态匹配到的参数值</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">params</span>)</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>示例：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>()</span><br><span class="line"><span class="comment">// 这里的:id是一个动态参数</span></span><br><span class="line">app.<span class="title function_">get</span>( <span class="string">'/user/:id'</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> {</span><br><span class="line">	<span class="comment">// req.params是动态匹配到的URL参数，默认也是一个空对象</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">params</span>)</span><br><span class="line">	res.<span class="title function_">send</span>(req.<span class="property">params</span>)</span><br><span class="line">})</span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">80</span>, <span class="function">() =&gt;</span> {</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>( <span class="string">'express server running at http://127.0.0.1'</span>)</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="2-2-Express托管静态资源"><a href="#2-2-Express托管静态资源" class="headerlink" title="2.2 Express托管静态资源"></a>2.2 Express托管静态资源</h4><p><strong>（1）express.static()</strong></p>
+<p>通过express.static()，我们可以非常方便地创建一个静态资源服务器,例如，通过如下代码就可以将public目录下的图片、CSS文件、JavaScript文件对外开放访问了：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">static</span>(<span class="string">'public'</span>))</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>（2）挂载路径前缀</strong></p>
+<p>如果希望在托管的静态资源访问路径之前，挂载路径前缀，则可以使用如下的方式：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="string">'./abcs'</span>, express.<span class="title function_">static</span>(<span class="string">'public'</span>))</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="2-3-Express路由"><a href="#2-3-Express路由" class="headerlink" title="2.3 Express路由"></a>2.3 Express路由</h4><h5 id="（1）Express的路由"><a href="#（1）Express的路由" class="headerlink" title="（1）Express的路由"></a>（1）Express的路由</h5><p>在Express中，路由指的是客户端的请求与服务器处理函数之间的映射关系。</p>
+<p>Express 中的路由分3部分组成，分别是请求的类型、请求的URL地址、处理函数，格式如下：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">METHOD</span>(<span class="variable constant_">PATH</span>, <span class="variable constant_">HANDLER</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li><p>METHOD：请求类型，值可以使GET也可以是POST</p>
+</li>
+<li><p>PATH：请求的URL地址</p>
+</li>
+<li><p>HANDLER：服务器端的处理函数</p>
+</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 匹配GET请求，且请求 URL为/</span></span><br><span class="line">app.<span class="title function_">get</span>( <span class="string">'/'</span>, <span class="keyword">function</span> (<span class="params">req,res</span>) {</span><br><span class="line">    res.<span class="title function_">send</span>( <span class="string">'Hello world! '</span>)</span><br><span class="line">})</span><br><span class="line"><span class="comment">// 匹配POST请求，且请求URL为/</span></span><br><span class="line">app.<span class="title function_">post</span>( <span class="string">'/'</span>, <span class="keyword">function</span> (<span class="params">req,res</span>){</span><br><span class="line">	res.<span class="title function_">send</span>(<span class="string">'Got a POST request'</span>)</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="（2）路由的使用"><a href="#（2）路由的使用" class="headerlink" title="（2）路由的使用"></a>（2）路由的使用</h5><p>示例：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>( <span class="string">'express'</span>)	<span class="comment">//创建web服务器，命名为app</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>()</span><br><span class="line"><span class="comment">// 挂载路由</span></span><br><span class="line">app.<span class="title function_">get</span>( <span class="string">'/'</span>, <span class="function">(<span class="params">req,res</span>)=&gt;</span> { res.<span class="title function_">send</span>( <span class="string">'Hello world.'</span>)})</span><br><span class="line">app.<span class="title function_">post</span>( <span class="string">'/'</span>, <span class="function">(<span class="params">req,res</span>) =&gt;</span> { res.<span class="title function_">send</span>( <span class="string">'Post Request.'</span>)})</span><br><span class="line"><span class="comment">// 启动web服务器</span></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">80</span>, <span class="function">() =&gt;</span> { <span class="variable language_">console</span>.<span class="title function_">log</span>( <span class="string">'server running at http://127.0.0.1'</span>)})</span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="（3）模块化路由"><a href="#（3）模块化路由" class="headerlink" title="（3）模块化路由"></a>（3）模块化路由</h5><p>1）模块化路由<br>为了方便对路由进行模块化的管理，Express 不建议将路由直接挂载到app 上，而是推荐将路由抽离为单独的模块。</p>
+<p>将路由抽离为单独模块的步骤如下:</p>
+<ol>
+<li>创建路由模块对应的.js文件</li>
+<li>调用express.Router()函数创建路由对象</li>
+<li>向路由对象上挂载具体的路由</li>
+<li>使用module.exports向外共享路由对象</li>
+<li>使用app.use()函数注册路由模块</li>
+</ol>
+<p>2）创建路由模块</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>( <span class="string">'express '</span>)</span><br><span class="line"><span class="comment">// 1．导入express</span></span><br><span class="line"><span class="keyword">var</span> router = express.<span class="title class_">Router</span>()</span><br><span class="line"><span class="comment">// 2．创建路由对象</span></span><br><span class="line">router.<span class="title function_">get</span>( <span class="string">'/user/list'</span>,<span class="keyword">function</span>(<span class="params">req,res</span>) { 			  <span class="comment">//3．挂载获取用户列表的路由</span></span><br><span class="line">    res.<span class="title function_">send</span>( <span class="string">'Get user list.'</span>)</span><br><span class="line">})</span><br><span class="line">router.<span class="title function_">post</span>( <span class="string">'/user/add'</span>, <span class="keyword">function</span>(<span class="params">req,res</span>) {			 <span class="comment">// 4．挂载添加用户的路由</span></span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">'Add new user.'</span>)</span><br><span class="line">})</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = router									<span class="comment">// 5．向外导出路由对象</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="（4）为路由模块添加前缀"><a href="#（4）为路由模块添加前缀" class="headerlink" title="（4）为路由模块添加前缀"></a>（4）为路由模块添加前缀</h5><p>类似于托管静态资源时，为静态资源统一挂载访问前缀一样</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1．导入路由模块</span></span><br><span class="line"><span class="keyword">const</span> userRouter = <span class="built_in">require</span>( <span class="string">'./router/user.js'</span>)</span><br><span class="line"><span class="comment">// 2．使用app.use()注册路由模块，并添加统一的访问前缀/api</span></span><br><span class="line">app.<span class="title function_">use</span>( <span class="string">'/api '</span>, userRouter)</span><br></pre></td></tr></tbody></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://funenn.github.io/">enn</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/23/node-js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/">http://example.com/2024/07/23/node-js学习（二）/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">ennの博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NodeJs/">NodeJs</a></div><div class="post_share"><div class="social-share" data-image="/img/39.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/07/23/Vue3%E7%BB%84%E5%90%88%E5%BC%8FAPI/" title="Vue3组合式API"><img class="cover" src="/img/27.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Vue3组合式API</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/21/node-js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" title="node.js学习（一）"><img class="cover" src="/img/14.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-21</div><div class="title">node.js学习（一）</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">enn</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/FunEnn"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/FunEnn" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://blog.csdn.net/mjh1667002013" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=3095852337&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="mailto:3095852337@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="toc-number">1.</span> <span class="toc-text">1、模块化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">1.1：模块化的基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2%EF%BC%9ANode-js%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="toc-number">1.2.</span> <span class="toc-text">1.2：Node.js中的模块化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81Express"><span class="toc-number">2.</span> <span class="toc-text">2、Express</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-Express%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Express的基本使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-Express%E6%89%98%E7%AE%A1%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Express托管静态资源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-Express%E8%B7%AF%E7%94%B1"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Express路由</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%881%EF%BC%89Express%E7%9A%84%E8%B7%AF%E7%94%B1"><span class="toc-number">2.3.1.</span> <span class="toc-text">（1）Express的路由</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%B7%AF%E7%94%B1%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.3.2.</span> <span class="toc-text">（2）路由的使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%A8%A1%E5%9D%97%E5%8C%96%E8%B7%AF%E7%94%B1"><span class="toc-number">2.3.3.</span> <span class="toc-text">（3）模块化路由</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E4%B8%BA%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97%E6%B7%BB%E5%8A%A0%E5%89%8D%E7%BC%80"><span class="toc-number">2.3.4.</span> <span class="toc-text">（4）为路由模块添加前缀</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/23/node-js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="node.js学习（二）"><img src="/img/39.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="node.js学习（二）"></a><div class="content"><a class="title" href="/2024/07/23/node-js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="node.js学习（二）">node.js学习（二）</a><time datetime="2024-07-23T14:01:28.000Z" title="发表于 2024-07-23 22:01:28">2024-07-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/23/Vue3%E7%BB%84%E5%90%88%E5%BC%8FAPI/" title="Vue3组合式API"><img src="/img/27.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vue3组合式API"></a><div class="content"><a class="title" href="/2024/07/23/Vue3%E7%BB%84%E5%90%88%E5%BC%8FAPI/" title="Vue3组合式API">Vue3组合式API</a><time datetime="2024-07-23T11:40:38.000Z" title="发表于 2024-07-23 19:40:38">2024-07-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" title="树状数组"><img src="/img/22.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树状数组"></a><div class="content"><a class="title" href="/2024/07/22/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" title="树状数组">树状数组</a><time datetime="2024-07-22T13:41:25.000Z" title="发表于 2024-07-22 21:41:25">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/Pinia%E7%9A%84%E4%BD%BF%E7%94%A8/" title="Pinia的使用"><img src="/img/52.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pinia的使用"></a><div class="content"><a class="title" href="/2024/07/22/Pinia%E7%9A%84%E4%BD%BF%E7%94%A8/" title="Pinia的使用">Pinia的使用</a><time datetime="2024-07-22T11:46:54.000Z" title="发表于 2024-07-22 19:46:54">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/21/node-js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" title="node.js学习（一）"><img src="/img/14.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="node.js学习（一）"></a><div class="content"><a class="title" href="/2024/07/21/node-js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" title="node.js学习（一）">node.js学习（一）</a><time datetime="2024-07-21T12:58:53.000Z" title="发表于 2024-07-21 20:58:53">2024-07-21</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2023 - 2024 By enn</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">你好</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
